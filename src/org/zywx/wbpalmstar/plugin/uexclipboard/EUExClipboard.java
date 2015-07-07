@@ -1,11 +1,14 @@
 package org.zywx.wbpalmstar.plugin.uexclipboard;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.zywx.wbpalmstar.engine.EBrowserView;
 import org.zywx.wbpalmstar.engine.universalex.EUExBase;
 import org.zywx.wbpalmstar.engine.universalex.EUExCallback;
 
 import android.content.Context;
 import android.text.ClipboardManager;
+import android.util.Log;
 
 public class EUExClipboard extends EUExBase {
 
@@ -28,8 +31,10 @@ public class EUExClipboard extends EUExBase {
 		}
 	}
 
+
 	public void getContent(String[] params) {
-		jsCallback(F_CALLBACK_GET_CONTENT, 0, EUExCallback.F_C_TEXT, clipboardManager.getText().toString());
+        String value=clipboardManager.getText().toString();
+        jsCallback(F_CALLBACK_GET_CONTENT, 0, EUExCallback.F_C_TEXT, value.replace("\n","\\n"));
 	}
 
 	@Override

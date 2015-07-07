@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <uexplugins>
     <plugin
-        uexName="uexClipboard" version="3.0.0" build="0">
-        <info>0:剪切板功能插件</info>
+        uexName="uexClipboard" version="3.0.1" build="1">
+        <info>1:换行符号处理</info>
+        <build>0:剪切板功能插件</build>
     </plugin>
 </uexplugins>
