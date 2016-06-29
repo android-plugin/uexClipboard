@@ -1,14 +1,32 @@
-apply plugin: 'com.android.application'
-
-dependencies {
-    compile fileTree(dir: 'libs', include: '*.jar')
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
 }
 
+apply plugin: 'com.android.application'
+
+
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile(name: "Engine-system-release-4.0.0", ext: 'aar')
+}
+
+
 android {
-    compileSdkVersion 21
-    buildToolsVersion "21.1.2"
-    lintOptions {
-        abortOnError false
+    compileSdkVersion 22
+    buildToolsVersion "23.0.2"
+    packagingOptions {
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
     }
 
     sourceSets {
@@ -22,17 +40,10 @@ android {
             assets.srcDirs = ['assets']
             jniLibs.srcDirs=['libs']
         }
-
-        // Move the tests to tests/java, tests/res, etc...
         instrumentTest.setRoot('tests')
 
-        // Move the build types to build-types/<type>
-        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
-        // This moves them out of them default location under src/<type>/... which would
-        // conflict with src/ being used by the main source set.
-        // Adding new build types or product flavors should be accompanied
-        // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
 }
+apply from: "https://raw.githubusercontent.com/android-plugin/gradle-plugin/master/buildPlugin.gradle"
